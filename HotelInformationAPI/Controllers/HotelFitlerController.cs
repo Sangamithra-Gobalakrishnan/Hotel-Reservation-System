@@ -17,7 +17,9 @@ namespace HotelInformationAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("FETCH ALL HOTELS")]
+        [HttpGet("Fetch All Hotels")]
+        [ProducesResponseType(typeof(ICollection<Hotel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<ICollection<Hotel>> FetchAllHotels()
         {
             var hotels = _service.GetAll();
@@ -26,7 +28,9 @@ namespace HotelInformationAPI.Controllers
             return BadRequest("Oops!No Hotels Available");
         }
 
-        [HttpGet("GET HOTELS BY LOCATION")]
+        [HttpGet("Get Hotels By Location")]
+        [ProducesResponseType(typeof(ICollection<Hotel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<ICollection<Hotel>> FetchByLocation(string location)
         {
             var hotels = _service.GetByLocation(location);
@@ -35,7 +39,9 @@ namespace HotelInformationAPI.Controllers
             return BadRequest("Oops!No Hotels Available In This Location Currently");
         }
 
-        [HttpGet("GET HOTELS BY PRICE RANGE")]
+        [HttpGet("Get Hotels By Price Range")]
+        [ProducesResponseType(typeof(ICollection<Hotel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<ICollection<Hotel>> FetchByPriceRange(double minRange)
         {
             var hotels = _service.GetByPriceRange(minRange);
@@ -44,12 +50,14 @@ namespace HotelInformationAPI.Controllers
             return BadRequest("Oops!No Hotels Available In This Price Range Currently");
         }
 
-        [HttpGet("GET AVAILABLE ROOMS ")]
+        [HttpGet("Get Available Rooms")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<int> FetchCount(string hotelName)
         {
             var hotelCount = _service.GetCount(hotelName);
             if (hotelCount != 0)
-                return Created("Available Rooms", hotelCount);
+                return Created("Available Rooms Count", hotelCount);
             return BadRequest("Oops!No Rooms Available Currently");
         }
     }

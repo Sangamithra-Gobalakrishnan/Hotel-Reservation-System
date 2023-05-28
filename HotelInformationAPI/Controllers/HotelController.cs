@@ -17,32 +17,38 @@ namespace HotelInformationAPI.Controllers
             _service = service;
         }
 
-        [HttpPost("ADD HOTEL INFORMATION")]
+        [HttpPost("Add Hotel Information")]
+        [ProducesResponseType(typeof(Hotel),StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] 
         public ActionResult<Hotel> Add(Hotel hotel)
         {
             var hotelAddResult = _service.Add(hotel);
             if (hotelAddResult != null)
-                    return Created("Hotel Information Successfully Added!", hotelAddResult);
-            return BadRequest(hotelAddResult);
+                return Ok("Hotel Information Successfully Added!");
+            return BadRequest("Information Could Not Be Added!");
         }
 
-        [HttpPut("UPDATE HOTEL INFORMATION")]
+        [HttpPut("Update Hotel Information")]
+        [ProducesResponseType(typeof(Hotel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Hotel> Update(Hotel hotel)
         {
             var hotelUpdateResult = _service.Update(hotel);
             if (hotelUpdateResult != null)
-                return Created("Hotel Information Successfully Updated!", hotelUpdateResult);
-            return BadRequest(hotelUpdateResult);
+                return Ok("Hotel Information Successfully Updated!");
+            return BadRequest("Information Could Not Be Updated!");
 
         }
 
-        [HttpDelete("DELETE A HOTEL INFORMATION")]
-        public ActionResult<Hotel> DeleteProject(int HotelID)
+        [HttpDelete("Delete Hotel Information")]
+        [ProducesResponseType(typeof(Hotel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Hotel> Delete(int HotelID)
         {
             var hotelDeleteResult = _service.Delete(HotelID);
             if (hotelDeleteResult != null)
-               return Created("Hotel Information Successfully Deleted!",hotelDeleteResult);
-            return BadRequest(hotelDeleteResult);
+               return Ok("Hotel Information Successfully Deleted!");
+            return BadRequest("Information Could Not Be Deleted");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace HotelInformationAPI.Services
 
         public ICollection<Hotel> GetAll()
         {
-           var hotels = _repo.GetAll();
+            var hotels = _repo.GetAll();
             if (hotels != null)
                 return hotels;
             return null;
@@ -39,7 +39,7 @@ namespace HotelInformationAPI.Services
             return null;
         }
 
-        public ICollection<Hotel> GetByPriceRange(double range1)
+        public ICollection<Hotel> GetByPriceRange(double range)
         {
             List<Hotel> hotels = new List<Hotel>();
             var hotel = _repo.GetAll();
@@ -47,7 +47,7 @@ namespace HotelInformationAPI.Services
             {
                 foreach (var item in hotel)
                 {
-                    if (range1 <= item.MinimumPriceRange)
+                    if (range <= item.MinimumPriceRange)
                     {
                         hotels.Add(item);
                     }

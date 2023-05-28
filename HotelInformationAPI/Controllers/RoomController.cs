@@ -19,22 +19,26 @@ namespace HotelInformationAPI.Controllers
              _roomService = roomService;
         }
         
-        [HttpPost("ADD ROOM INFORMATION")]
+        [HttpPost("Add Room Information")]
+        [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Room> Add(Room room)
         {
             var roomAddResult = _roomService.Add(room);
             if (roomAddResult != null)
-                return Created("Room Information Successfully Added!", roomAddResult);
-            return BadRequest(roomAddResult);
+                return Ok("Room Information Successfully Added!");
+            return BadRequest("Unable To Add The Room Information");
         }
 
-        [HttpDelete("DELETE A ROOM INFORMATION")]
+        [HttpDelete("Delete Room Information")]
+        [ProducesResponseType(typeof(RoomDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<RoomDTO> DeleteProject(RoomDTO roomDTO)
         {
             var roomDeleteResult = _roomService.Delete(roomDTO);
             if (roomDeleteResult != null)
-                return Created("Hotel Information Successfully Deleted!", roomDeleteResult);
-            return BadRequest(roomDeleteResult);
+                return Ok("Hotel Information Successfully Deleted!");
+            return BadRequest("Unable To Delete The Room Information");
         }
     }
 }

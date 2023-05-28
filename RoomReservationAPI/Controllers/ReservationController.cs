@@ -20,22 +20,26 @@ namespace RoomReservationAPI.Controllers
             _service = service;
         }
 
-        [HttpPost("MAKE A RESERVATION")]
+        [HttpPost("Book A Reservation")]
+        [ProducesResponseType(typeof(Reservation), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Reservation> Book(Reservation reservation)
         {
             var roomReserveResult = _service.Book(reservation);
             if (roomReserveResult != null)
-                return Created("Reservation Successfull!", roomReserveResult);
-            return BadRequest(roomReserveResult);
+                return Ok("Reservation Successfull!");
+            return BadRequest("Unable To Make A Reservation");
         }
 
-        [HttpDelete("CANCEL A RESERVATION")]
+        [HttpDelete("Cancel A Reservation")]
+        [ProducesResponseType(typeof(ReservationDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<ReservationDTO> Cancel(ReservationDTO reservationDTO)
         {
             var roomCancelResult = _service.Cancel(reservationDTO);
             if (roomCancelResult != null)
-                return Created("Cancellation Successfull!", roomCancelResult);
-            return BadRequest(roomCancelResult);
+                return Ok("Cancellation Successfull!");
+            return BadRequest("Reservation Cannot Be Cancelled");
         }
     }
 }

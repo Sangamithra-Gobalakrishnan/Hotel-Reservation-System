@@ -8,11 +8,11 @@ namespace HotelInformationAPI.Models
         public int HotelId { get; set; }
 
         [Required]
-        [MaxLength(25, ErrorMessage = "Must Not Exceed More Than 25 Characters")]
+        [MaxLength(25, ErrorMessage = "Should Not Exceed More Than 25 Characters")]
         public string Name { get; set; }
         
         [Required]
-        [MinLength(25, ErrorMessage = "Must Be Atleast 25 Characters")]
+        [MinLength(25, ErrorMessage = "Should Be Atleast 25 Characters")]
         public string Description { get; set; }
 
         [Required]

@@ -21,8 +21,14 @@ namespace HotelInformationAPI.Services
                 var hotel = _hotelContext.HotelInformation.ToList();
                 foreach(var item in hotel)
                 {
-                    if(item.HotelId == room.HotelId)
+                    if (item.HotelId == room.HotelId)
                     {
+                        var rooms = _hotelContext.RoomInformation.ToList();
+                        foreach(var roomItem in rooms)
+                        {
+                            if (roomItem.HotelId == room.HotelId && roomItem.RoomId == room.RoomId)
+                                return null;
+                        }
                         _hotelContext.RoomInformation.Add(room);
                         _hotelContext.SaveChanges();
                         return room;
